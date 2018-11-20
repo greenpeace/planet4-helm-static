@@ -10,15 +10,14 @@ Charts stored in Google Cloud Storage bucket gs://planet4-helm-charts
 
 ## Quickstart
 
+Create and modify a `values-local.yaml` file, then deploy to cluster via:
+
 ```
 # Add alias to remote repository
 helm repo add p4 https://planet4-helm-charts.storage.googleapis.com
 
-# Install/upgrade command, with custom values
-helm upgrade --install p4-site \
-  -f values-local.yaml \
-  p4/wordpress
-
+# Install/upgrade command
+RELEASE_NAME=p4-release-name make deploy
 ```
 
 ---
