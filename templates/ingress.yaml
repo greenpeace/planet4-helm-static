@@ -1,0 +1,42 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "fullname" . -}}
+{{- $servicePort := .Values.service.port -}}
+{{- $ingressPath := .Values.ingress.path -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ template "static.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- with .Values.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+{{- if .Values.ingress.tls }}
+  tls:
+  {{- range .Values.ingress.tls }}
+    - hosts:
+        - {{ .Values.hostname }}
+      secretName: {{ .secretName }}
+  {{- end }}
+{{- end }}
+  rules:
+    - host: {{ .Values.hostname }}
+      http:
+        paths:
+          - path: /{{ .Values.hostpath | default "" }}
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
+    - host: www.greenpeace.org
+      http:
+        paths:
+          - path: /{{ .Values.hostpath | default "" }}
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
+{{- end }}

@@ -1,0 +1,16 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}-openresty-autoscaler
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ template "static.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: {{ template "fullname" . }}
+  minReplicas: {{ .Values.minReplicaCount }}
+  maxReplicas: {{ .Values.maxReplicaCount }}
+  targetCPUUtilizationPercentage: 60

@@ -1,0 +1,94 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ template "static.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    component: openresty
+spec:
+  replicas: {{ .Values.minReplicaCount }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: {{ template "name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+        component: openresty
+        environment: {{ .Values.environment }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: APP_ENV
+            value: {{ .Values.environment | quote }}
+          - name: APP_HOSTNAME
+            value: {{ .Values.hostname | quote }}
+          - name: APP_HOSTPATH
+            value: {{ .Values.hostpath | default "" | quote }}
+
+          - name: PAGESPEED_ENABLED
+            value: {{ .Values.pagespeed.enabled | quote }}
+
+          - name: PAGESPEED_REDIS_SERVER
+          {{- if .Values.pagespeed.redis.enabled }}
+            value: "{{ template "redis.fullname" . }}-master:6379"
+          {{- else }}
+            value: ""
+          {{- end }}
+
+          {{- if .Values.healthProbes.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /{{ .Values.hostPath }}
+              port: http
+            initialDelaySeconds: {{ .Values.healthProbes.livenessDelay }}
+            periodSeconds: {{ .Values.healthProbes.livenessPeriod }}
+          readinessProbe:
+            httpGet:
+              path: /{{ .Values.hostPath }}
+              port: http
+            initialDelaySeconds: {{ .Values.healthProbes.readinessDelay }}
+            periodSeconds: {{ .Values.healthProbes.readinessPeriod }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: release
+                operator: NotIn
+                values:
+                - {{ .Release.Name }}
+              - key: component
+                operator: NotIn
+                values:
+                - openresty
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
