@@ -1,0 +1,60 @@
+# Default values
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+environment: production
+
+hostname: www.example.org
+hostpath: ""
+
+image:
+  repository: gcr.io/planet-4-151612/openresty
+  tag: latest
+  pullPolicy: Always
+fastcgi:
+  redis: false
+service:
+  type: ClusterIP
+  port: 80
+healthProbes:
+  enabled: true
+  livenessDelay: 5
+  livenessPeriod: 10
+  readinessDelay: 5
+  readinessPeriod: 10
+minReplicaCount: 1
+maxReplicaCount: 2
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "10m"
+  limits:
+    memory: "128Mi"
+    cpu: "200m"
+
+ingress:
+  # hosts:
+  #   - name: www.example.org
+  #     path: /
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+ingressProduction:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  tls: []
+
+pagespeed:
+  redis:
+    enabled: false
+  enabled: false
+
+nodeSelector: {}
+
+tolerations: []

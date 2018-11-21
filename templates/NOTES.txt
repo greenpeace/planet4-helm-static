@@ -1,0 +1,9 @@
+Containers:
+- {{ .Values.image.repository }}:{{ .Values.image.tag }}
+
+{{- if .Values.ingress.enabled }}
+
+Site:
+- https://{{ .Values.hostname }}/{{ .Values.hostpath | default "" }}
+
+{{- end }}
