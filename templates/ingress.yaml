@@ -33,7 +33,7 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: http
     {{- if .Values.ingress.hosts }}
-    {{ range $i, $host := .Values.ingress.hosts -}}
+    {{ range $i, $host := .Values.ingress.hosts }}
     - host: {{ $host.name }}
       http:
         paths:
