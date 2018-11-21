@@ -32,11 +32,15 @@ spec:
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
-    - host: www.greenpeace.org
+    {{- if .Values.ingress.hosts }}
+    {{ range $i, $host := .Values.ingress.hosts -}}
+    - host: {{ $host.name }}
       http:
         paths:
-          - path: /{{ .Values.hostpath | default "" }}
+          - path: /{{ $host.path | default "" }}
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
+    {{- end }}
+    {{- end }}
 {{- end }}

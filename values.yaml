@@ -33,6 +33,9 @@ resources:
     cpu: "200m"
 
 ingress:
+  # hosts:
+  #   - name: www.example.org
+  #     path: /
   enabled: true
   annotations:
     kubernetes.io/ingress.class: traefik
