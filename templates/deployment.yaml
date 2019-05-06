@@ -61,7 +61,7 @@ spec:
             periodSeconds: {{ .Values.healthProbes.livenessPeriod }}
           readinessProbe:
             httpGet:
-              path: /health-check
+              path: /
               port: http
             initialDelaySeconds: {{ .Values.healthProbes.readinessDelay }}
             periodSeconds: {{ .Values.healthProbes.readinessPeriod }}
