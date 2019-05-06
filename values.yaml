@@ -27,10 +27,8 @@ maxReplicaCount: 2
 resources:
   requests:
     memory: "64Mi"
-    cpu: "10m"
-  limits:
-    memory: "128Mi"
-    cpu: "200m"
+    cpu: "100m"
+targetCPUUtilizationPercentage: 1000 # * targetCPUUtilizationPercentage. 200m * 500 = 1 CPU
 
 ingress:
   # hosts:
