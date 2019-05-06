@@ -9,6 +9,7 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   scaleTargetRef:
+    apiVersion: extensions/v1beta1
     kind: Deployment
     name: {{ template "fullname" . }}
   minReplicas: {{ .Values.minReplicaCount }}
