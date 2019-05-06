@@ -35,6 +35,8 @@ spec:
           env:
           - name: APP_ENV
             value: {{ .Values.environment | quote }}
+          - name: GEOIP_ENABLED
+            value: {{ .Values.geoip.enabled | quote }}
           - name: APP_HOSTNAME
             value: {{ .Values.hostname | quote }}
           - name: APP_HOSTPATH
