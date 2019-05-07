@@ -1,7 +1,4 @@
-# Default values
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
+---
 environment: production
 
 hostname: www.example.org
@@ -33,16 +30,9 @@ resources:
 targetCPUUtilizationPercentage: 1000 # * targetCPUUtilizationPercentage. 200m * 500 = 1 CPU
 
 ingress:
-  # hosts:
-  #   - name: www.example.org
-  #     path: /
   enabled: true
   annotations:
     kubernetes.io/ingress.class: traefik
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 ingressProduction:
   enabled: true
