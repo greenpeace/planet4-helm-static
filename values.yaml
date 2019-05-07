@@ -34,12 +34,6 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: traefik
 
-ingressProduction:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: traefik
-  tls: []
-
 pagespeed:
   redis:
     enabled: false
