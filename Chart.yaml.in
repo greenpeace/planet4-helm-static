@@ -2,4 +2,4 @@
 apiVersion: v1
 description: Greenpeace Planet 4 Static Site
 name: static
-version: 0.3.0
+version: ${BUILD_TAG}

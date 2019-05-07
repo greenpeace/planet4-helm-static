@@ -35,6 +35,8 @@ spec:
           env:
           - name: APP_ENV
             value: {{ .Values.environment | quote }}
+          - name: GEOIP2_ENABLED
+            value: {{ .Values.geoip.enabled | quote }}
           - name: APP_HOSTNAME
             value: {{ .Values.hostname | quote }}
           - name: APP_HOSTPATH
@@ -53,13 +55,13 @@ spec:
           {{- if .Values.healthProbes.enabled }}
           livenessProbe:
             httpGet:
-              path: /{{ .Values.hostPath }}
+              path: /health-check
               port: http
             initialDelaySeconds: {{ .Values.healthProbes.livenessDelay }}
             periodSeconds: {{ .Values.healthProbes.livenessPeriod }}
           readinessProbe:
             httpGet:
-              path: /{{ .Values.hostPath }}
+              path: /
               port: http
             initialDelaySeconds: {{ .Values.healthProbes.readinessDelay }}
             periodSeconds: {{ .Values.healthProbes.readinessPeriod }}

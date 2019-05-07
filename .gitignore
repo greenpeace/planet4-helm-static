@@ -1,2 +1,4 @@
 values-local.yaml
+Chart.yaml
+requirements.yaml
 secrets/

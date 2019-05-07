@@ -9,8 +9,9 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   scaleTargetRef:
+    apiVersion: extensions/v1beta1
     kind: Deployment
     name: {{ template "fullname" . }}
   minReplicas: {{ .Values.minReplicaCount }}
   maxReplicas: {{ .Values.maxReplicaCount }}
-  targetCPUUtilizationPercentage: 60
+  targetCPUUtilizationPercentage: {{ .Values.targetCPUUtilizationPercentage }} # * resources.requests. 1000% of 100m = 1 CPU

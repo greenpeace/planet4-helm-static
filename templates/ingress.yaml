@@ -1,7 +1,5 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "fullname" . -}}
-{{- $servicePort := .Values.service.port -}}
-{{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -33,7 +31,7 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: http
     {{- if .Values.ingress.hosts }}
-    {{ range $i, $host := .Values.ingress.hosts -}}
+    {{ range $i, $host := .Values.ingress.hosts }}
     - host: {{ $host.name }}
       http:
         paths:
