@@ -36,7 +36,26 @@ spec:
           - name: APP_ENV
             value: {{ .Values.environment | quote }}
           - name: GEOIP2_ENABLED
-            value: {{ .Values.geoip.enabled | quote }}
+            value: {{ .Values.openresty.geoip.enabled | quote }}
+          {{- if .Values.openresty.geoip.enabled }}
+            value: "true"
+          - name: MAXMIND_ACCOUNTID
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-maxmind"
+                key: accountid
+          - name: MAXMIND_LICENSE
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-maxmind"
+                key: license
+          {{- else }}
+            value: "false"
+          {{- end }}
+
+          - name: CLOUDFLARE_ENABLED
+            value: {{ .Values.openresty.cloudflare.enabled | quote }}
+
           - name: APP_HOSTNAME
             value: {{ .Values.hostname | quote }}
           - name: APP_HOSTPATH

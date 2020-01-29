@@ -19,9 +19,7 @@ healthProbes:
   livenessPeriod: 10
   readinessDelay: 5
   readinessPeriod: 10
-geoip:
-  enabled: false
-minReplicaCount: 2
+  minReplicaCount: 2
 maxReplicaCount: 2
 resources:
   requests:
@@ -38,6 +36,15 @@ pagespeed:
   redis:
     enabled: false
   enabled: false
+
+openresty:
+  geoip:
+    enabled: false
+    maxmind:
+      accountid: ""
+      license: ""
+  cloudflare:
+    enabled: false
 
 nodeSelector: {}
 
