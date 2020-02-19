@@ -39,15 +39,15 @@ spec:
             value: {{ .Values.openresty.geoip.enabled | quote }}
           {{- if .Values.openresty.geoip.enabled }}
             value: "true"
-          - name: MAXMIND_ACCOUNTID
+          - name: GEOIP_ACCOUNTID
             valueFrom:
               secretKeyRef:
-                name: "{{ .Release.Name }}-maxmind"
+                name: "{{ .Release.Name }}-geoip"
                 key: accountid
-          - name: MAXMIND_LICENSE
+          - name: GEOIP_LICENSE
             valueFrom:
               secretKeyRef:
-                name: "{{ .Release.Name }}-maxmind"
+                name: "{{ .Release.Name }}-geoip"
                 key: license
           {{- else }}
             value: "false"

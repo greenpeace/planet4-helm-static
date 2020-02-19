@@ -19,8 +19,10 @@ healthProbes:
   livenessPeriod: 10
   readinessDelay: 5
   readinessPeriod: 10
-  minReplicaCount: 2
+
+minReplicaCount: 2
 maxReplicaCount: 2
+
 resources:
   requests:
     memory: "64Mi"
@@ -40,9 +42,9 @@ pagespeed:
 openresty:
   geoip:
     enabled: false
-    maxmind:
-      accountid: ""
-      license: ""
+    accountid: ""
+    license: ""
+
   cloudflare:
     enabled: false
 
