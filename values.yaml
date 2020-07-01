@@ -20,7 +20,7 @@ healthProbes:
   readinessDelay: 5
   readinessPeriod: 10
 
-minReplicaCount: 1
+minReplicaCount: 2
 maxReplicaCount: 2
 
 resources:
