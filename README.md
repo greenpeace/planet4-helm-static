@@ -2,7 +2,7 @@
 
 [![Planet4](https://cdn-images-1.medium.com/letterbox/300/36/50/50/1*XcutrEHk0HYv-spjnOej2w.png?source=logoAvatar-ec5f4e3b2e43---fded7925f62)](https://medium.com/planet4)
 
-Builds on [https://github.com/greenpeace/planet4-docker]()
+Builds on https://github.com/greenpeace/planet4-docker
 
 Charts stored in Google Cloud Storage bucket gs://planet4-helm-charts
 
