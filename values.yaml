@@ -37,6 +37,12 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: traefik
 
+nginxingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+
 pagespeed:
   redis:
     enabled: false
