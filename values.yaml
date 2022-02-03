@@ -3,6 +3,7 @@ environment: production
 
 hostname: www.example.org
 hostpath: ""
+hosttls: false
 
 image:
   repository: gcr.io/planet-4-151612/openresty
