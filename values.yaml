@@ -33,13 +33,9 @@ resources:
     cpu: "100m"
 targetCPUUtilizationPercentage: 5000 # Scale up when pod uses .5 cores
 
-ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: traefik
-
 nginxingress:
   enabled: true
+  ingressClassName: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
