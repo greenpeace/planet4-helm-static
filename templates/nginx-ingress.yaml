@@ -35,6 +35,7 @@ spec:
       http:
         paths:
           - path: /{{ .Values.hostpath | default "" }}
+            pathType: ImplementationSpecific
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
@@ -44,6 +45,7 @@ spec:
       http:
         paths:
           - path: /{{ $host.path | default "" }}
+            pathType: ImplementationSpecific
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
