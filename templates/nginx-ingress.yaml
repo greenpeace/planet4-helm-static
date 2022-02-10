@@ -37,8 +37,10 @@ spec:
           - path: /{{ .Values.hostpath | default "" }}
             pathType: ImplementationSpecific
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
+              service:
+                name: {{ $fullName }}
+                port:
+                  name: http
     {{- if .Values.nginxingress.hosts }}
     {{ range $i, $host := .Values.nginxingress.hosts }}
     - host: {{ $host.name }}
@@ -47,8 +49,10 @@ spec:
           - path: /{{ $host.path | default "" }}
             pathType: ImplementationSpecific
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: http
+              service:
+                name: {{ $fullName }}
+                port:
+                  name: http
     {{- end }}
     {{- end }}
 {{- end }}
