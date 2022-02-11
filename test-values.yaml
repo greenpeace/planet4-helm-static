@@ -1,0 +1,18 @@
+---
+image:
+  repository: greenpeaceinternational/p4-landing-page
+openresty:
+  geoip:
+    enabled: true
+    accountid: ""
+    license: ""
+pagespeed:
+  enabled: false
+ingress:
+  annotations:
+    traefik.frontend.rule.type: PathPrefixStrip
+nginxingress:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+healthProbes:
+  livenessDelay: 45
