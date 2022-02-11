@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: {{ template "fullname" . }}
+  release: prometheus-stack
+  labels:
+    release: prometheus-stack
+spec:
+  jobName: prometheus-blackbox-exporter
+  interval: 30s
+  module: http_2xx
+  prober:
+    url: prometheus-blackbox-exporter.kube-system.svc.cluster.local:9115
+    scheme: http
+    path: /probe
+  targets:
+    staticConfig:
+      static:
+      - https://{{- .Values.hostname -}}/{{- .Values.hostpath | default "" -}}
