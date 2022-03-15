@@ -57,8 +57,6 @@ spec:
               secretKeyRef:
                 name: "{{ .Release.Name }}-geoip"
                 key: license
-          {{- else }}
-            value: "false"
           {{- end }}
           {{- if .Values.openresty.custom_404 }}
           - name: CUSTOM_404

@@ -49,9 +49,9 @@ openresty:
     enabled: false
     accountid: ""
     license: ""
-  
+
   custom_404: false
-  
+
   cloudflare:
     enabled: false
 
