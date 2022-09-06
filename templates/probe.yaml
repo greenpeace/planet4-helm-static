@@ -2,7 +2,6 @@ apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
   name: {{ template "fullname" . }}
-  release: prometheus-stack
   labels:
     release: prometheus-stack
 spec:
