@@ -84,9 +84,6 @@ workflows:
     jobs:
       - lint:
           context: org-global
-          filters:
-            branches:
-              ignore: main
       - hold:
           type: approval
           requires:
