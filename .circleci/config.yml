@@ -76,6 +76,7 @@ jobs:
       - run: helm3 repo add rimusz https://charts.rimusz.net
       - run: helm3 repo add bitnami https://charts.bitnami.com/bitnami
       - run: helm3 repo add p4 https://planet4-helm-charts.storage.googleapis.com
+      - run: helm3 init --client-only
       - run: activate-gcloud-account.sh
       - run: BUILD_TAG=${CIRCLE_TAG#v} make
 
