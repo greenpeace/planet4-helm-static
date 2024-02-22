@@ -30,27 +30,11 @@ jobs:
           at: /tmp/workspace
       - checkout
       - run:
-          name: prepare git
+          name: Prepare git
           command: |
             git config user.email "${GIT_USER_EMAIL}"
             git config user.name "CircleCI Bot"
             git config merge.ours.driver true
-      - run:
-          name: tag
-          command: |
-            current_version=$(git-current-tag.sh)
-            new_version=$(increment-version.sh $current_version)
-            echo "Tagging to ${new_version}"
-            BUILD_TAG="${new_version#v}"
-            export BUILD_TAG
-            make clean rewrite
-            git update-index --no-assume-unchanged Chart.yaml requirements.yaml
-            git add -f Chart.yaml requirements.yaml
-            git add .
-            git commit -m ":robot: Release ${new_version}" -m "[ci skip]"
-            git push origin main
-            git tag -a "$new_version" -m "$new_version"
-            git push origin --tags
       - run:
           name: Release
           command: |
@@ -60,7 +44,6 @@ jobs:
             BUILD_TAG="${new_version#v}"
             export BUILD_TAG
             make clean rewrite
-
             git update-index --no-assume-unchanged Chart.yaml requirements.yaml
             git add -f Chart.yaml requirements.yaml
             git add .
