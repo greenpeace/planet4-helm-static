@@ -55,11 +55,11 @@ lint-yaml: Chart.yaml requirements.yaml
 	@yamllint requirements.yaml
 
 .PHONY: lint-helm
-	@helm lint .
+	@helm3 lint .
 
 .PHONY: dep
 dep: lint
-	@helm dependency update
+	@helm3 dependency update
 
 $(CHART_DIRECTORY):
 	@mkdir -p $@
@@ -83,16 +83,16 @@ package: lint Chart.yaml
 		>&2 echo "ERROR: Refusing to package non-semver release: '$(BUILD_TAG)'"; \
 		exit 1; \
 	}
-	@helm package .
+	@helm3 package .
 	@mv $(CHART_NAME)-*.tgz $(CHART_DIRECTORY)
 
 .PHONY: verify
 verify: lint
-	@helm verify $(CHART_DIRECTORY)
+	@helm3 verify $(CHART_DIRECTORY)
 
 .PHONY: index
 index: lint $(CHART_DIRECTORY)
-	@helm repo index $(CHART_DIRECTORY) --url $(CHART_URL)
+	@helm3 repo index $(CHART_DIRECTORY) --url $(CHART_URL)
 
 .PHONY: push
 push: package $(CHART_DIRECTORY)
@@ -100,5 +100,5 @@ push: package $(CHART_DIRECTORY)
 
 .PHONY: update
 update:
-	@helm repo update
-	@helm search repo p4 $(CHART_NAME)
+	@helm3 repo update
+	@helm3 search repo p4 $(CHART_NAME)
