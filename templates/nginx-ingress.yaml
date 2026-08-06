@@ -34,7 +34,14 @@ spec:
     - host: {{ .Values.hostname }}
       http:
         paths:
-          - path: /{{ .Values.hostpath | default "" }}
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ $fullName }}
+                port:
+                  name: http
+          - path: /{{ .Values.hostpath }}
             pathType: ImplementationSpecific
             backend:
               service:
