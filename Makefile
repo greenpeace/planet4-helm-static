@@ -96,7 +96,7 @@ index: lint $(CHART_DIRECTORY)
 
 .PHONY: push
 push: package $(CHART_DIRECTORY)
-	@gcloud storage rsync $(CHART_BUCKET) $(CHART_DIRECTORY) --delete-unmatched-destination-objects
+	@gcloud storage rsync $(CHART_DIRECTORY) $(CHART_BUCKET) --delete-unmatched-destination-objects
 
 .PHONY: update
 update:
